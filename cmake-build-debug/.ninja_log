@@ -1,0 +1,9 @@
+# ninja log v5
+2	866	1666885812654067652	CMakeFiles/commander.dir/main.cpp.o	89b1336cc97ec4d2
+866	912	1666885812705731838	commander	91587d006ebeea0c
+2	1117	1666878107703006133	CMakeFiles/commander.dir/options_parser/options_parser.cpp.o	e4f6bb67651eb15c
+22	985	1666885702341332993	CMakeFiles/commander.dir/commands.cpp.o	a67dafe4b212ffd4
+3	832	1666886212541128747	CMakeFiles/commander.dir/main.cpp.o	89b1336cc97ec4d2
+4	840	1666886212549725868	CMakeFiles/commander.dir/commands.cpp.o	a67dafe4b212ffd4
+4	858	1666886212567076485	CMakeFiles/commander.dir/options_parser/options_parser.cpp.o	e4f6bb67651eb15c
+858	900	1666886212613134936	commander	91587d006ebeea0c

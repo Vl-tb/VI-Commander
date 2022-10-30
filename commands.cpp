@@ -2,9 +2,10 @@
 #include "errors.h"
 #include <filesystem>
 #include <iostream>
-#include <fstream>
 #include <string>
-#include <unistd.h>
+#include <sys/stat.h>
+#include <pwd.h>
+#include <boost/algorithm/string.hpp>
 
 int vi_cd(const std::vector<std::string> &args) {
     if (args.size() > 1) {
@@ -65,7 +66,7 @@ int vi_mv(const std::vector<std::string> &args) {
 }
 
 int vi_mkdir(const std::vector<std::string> &args){
-    if (args.size() < 1) {
+    if (args.empty()) {
         std::cerr << "mkdir: too few arguments" << std::endl;
         return ARGUMENTS_ERROR;
     }
@@ -97,7 +98,7 @@ int vi_mkdir(const std::vector<std::string> &args){
 }
 
 int vi_touch(const std::vector<std::string> &args){
-    if (args.size() < 1) {
+    if (args.empty()) {
         std::cerr << "touch: too few arguments" << std::endl;
         return ARGUMENTS_ERROR;
     }
@@ -115,7 +116,7 @@ int vi_touch(const std::vector<std::string> &args){
 }
 
 int vi_cat(const std::vector<std::string> &args, std::vector<std::string>* output){
-    if (args.size() < 1) {
+    if (args.empty()) {
         std::cerr << "cat: too few arguments" << std::endl;
         return ARGUMENTS_ERROR;
     }
@@ -134,11 +135,132 @@ int vi_cat(const std::vector<std::string> &args, std::vector<std::string>* outpu
     return 0;
 }
 
-std::string replace_str(std::string str, const std::string &from, const std::string &to) {
-    size_t start_pos = 0;
-    while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
-        str.replace(start_pos, from.length(), to);
-        start_pos += to.length();
+int vi_ls(const std::vector<std::string> &args, std::string &output){
+    std::filesystem::path cur_path = std::filesystem::current_path();
+    std::vector<file_data> metadata;
+    size_t max_user_len = 0;
+    size_t max_size_len = 0;
+    size_t max_name_len = 0;
+
+    for (const auto & entry : std::filesystem::directory_iterator(cur_path)) {
+        file_data file_meta;
+        std::string path = entry.path();
+        std::string file_name;
+
+        std::vector<std::string> splitting;
+        boost::split(splitting, path, boost::is_any_of("/"));
+        file_name = splitting[splitting.size()-1];
+
+        std::filesystem::file_status status = std::filesystem::symlink_status(path);
+        std::filesystem::perms permissions = status.permissions();
+
+        std::string perms_str;
+        perms_str.reserve(9);
+
+        (permissions & std::filesystem::perms::owner_read) != std::filesystem::perms::none ? perms_str += "r" : perms_str += "-";
+        (permissions & std::filesystem::perms::owner_write) != std::filesystem::perms::none ? perms_str += "w" : perms_str += "-";
+        (permissions & std::filesystem::perms::owner_exec) != std::filesystem::perms::none ? perms_str += "x" : perms_str += "-";
+        (permissions & std::filesystem::perms::group_read) != std::filesystem::perms::none ? perms_str += "r" : perms_str += "-";
+        (permissions & std::filesystem::perms::group_write) != std::filesystem::perms::none ? perms_str += "w" : perms_str += "-";
+        (permissions & std::filesystem::perms::group_exec) != std::filesystem::perms::none ? perms_str += "x" : perms_str += "-";
+        (permissions & std::filesystem::perms::others_read) != std::filesystem::perms::none ? perms_str += "r" : perms_str += "-";
+        (permissions & std::filesystem::perms::others_write) != std::filesystem::perms::none ? perms_str += "w" : perms_str += "-";
+        (permissions & std::filesystem::perms::others_exec) != std::filesystem::perms::none ? perms_str += "x" : perms_str += "-";
+
+        file_meta.rwx = perms_str;
+
+        if (std::filesystem::is_directory(status)) {
+            file_name = "\\" + file_name;
+        }
+
+        else if (std::filesystem::is_fifo(status)) {
+            file_name = "|" + file_name;
+        }
+        else if (std::filesystem::is_socket(status)) {
+            file_name = "=" + file_name;
+        }
+        else if (std::filesystem::is_symlink(status)) {
+            file_name = "@" + file_name;
+        }
+        else if (((permissions & std::filesystem::perms::owner_exec) != std::filesystem::perms::none ||
+                (permissions & std::filesystem::perms::group_exec) != std::filesystem::perms::none ||
+                (permissions & std::filesystem::perms::others_exec) != std::filesystem::perms::none) &&
+                (!std::filesystem::is_regular_file(status))){
+            file_name = "*" + file_name;
+        }
+        else if (!std::filesystem::is_regular_file(status)){
+            file_name = "?" + file_name;
+        }
+        file_meta.name = file_name;
+        if (file_name.length() > max_name_len){
+            max_name_len = file_name.length();
+        }
+
+        struct stat sb{};
+        std::string user_str;
+        if (stat(path.c_str(), &sb) == -1) {
+            std::cerr << "Could not obtain information about path" << std::endl;
+            return INVALID_PATH;
+        }
+        auto pw = getpwuid(sb.st_uid);
+        if (pw == nullptr) {
+            user_str = "";
+        }
+        else{
+            user_str =  pw->pw_name;
+        }
+        file_meta.user = user_str;
+        if (user_str.length() > max_user_len){
+            max_user_len = user_str.length();
+        }
+
+        auto file_size = sb.st_size;
+        file_meta.size = std::to_string(file_size);
+        if (file_meta.size.length() > max_size_len){
+            max_size_len = file_meta.size.length();
+        }
+
+        auto mod_time = sb.st_mtime;
+        std::tm * ptm = std::localtime(&mod_time);
+        char time_mod_buf[32];
+        std::strftime(time_mod_buf, 32, "%Y-%m-%d %H:%M:%S", ptm);
+
+        file_meta.date = std::string{time_mod_buf};
+        metadata.emplace_back(file_meta);
     }
-    return str;
+
+    output.reserve(33 + max_user_len + max_size_len + max_name_len);
+    for (size_t i=0; i < metadata.size(); ++i){
+        for (size_t j=0; j<9; ++j){
+            output += metadata[i].rwx[j];
+        }
+        output += ' ';
+        for (size_t j=0; j<max_user_len - metadata[i].user.length(); ++j){
+            output += ' ';
+        }
+        for (size_t j=0; j<metadata[i].user.length(); ++j){
+            output += metadata[i].user[j];
+        }
+        output += ' ';
+        for (size_t j=0; j<max_size_len - metadata[i].size.length(); ++j){
+            output += ' ';
+        }
+        for (size_t j=0; j<metadata[i].size.length(); ++j){
+            output += metadata[i].size[j];
+        }
+        output += ' ';
+        output += ' ';
+        for (size_t j=0; j<metadata[i].date.length(); ++j){
+            output += metadata[i].date[j];
+        }
+        output += ' ';
+        output += ' ';
+        for (size_t j=0; j<metadata[i].name.length(); ++j){
+            output += metadata[i].name[j];
+        }
+        if (i != metadata.size()-1){
+            output += '\n';
+        }
+    }
+    return 0;
 }

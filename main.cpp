@@ -9,9 +9,9 @@ int main(int argc, char *argv[]) {
 
 // Testing cd:
     std::vector<std::string> input = {".."};
-    std::cout << std::filesystem::current_path() << std::endl;
+//    std::cout << std::filesystem::current_path() << std::endl;
     vi_cd(input);
-    std::cout << std::filesystem::current_path() << std::endl;
+//    std::cout << std::filesystem::current_path() << std::endl;
 
 // Testing mv:
     std::vector<std::string> input2 = {"hello.txt", "helloe.txt"};
@@ -31,8 +31,14 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> output;
     std::vector<std::string> input6 = {"hello2.txt", "helloe.txt"};
     vi_cat(input6, &output);
-    for (auto &el: output){
-        std::cout << el << std::endl;
-    }
+//    for (auto &el: output){
+//        std::cout << el << std::endl;
+//    }
+
+//  Testing ls:
+    std::vector<std::string> input7 = {};
+    std::string ls{};
+    vi_ls(input7, ls);
+    std::cout << ls << std::endl;
     return 0;
 }

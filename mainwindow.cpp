@@ -60,7 +60,7 @@ void MainWindow::on_changePathL_clicked()
         filepathLeft = dirL.path();
         loadFilesL(dirL);
     } else {
-        ui->statusbar->showMessage("No such path: " + curPL);
+        ui->statusbar->showMessage("No such path: " + curPL, 5000);
     }
 }
 
@@ -76,7 +76,7 @@ void MainWindow::on_changePathR_clicked()
         filepathRight = dirR.path();
         loadFilesR(dirR);
     } else {
-        ui->statusbar->showMessage("No such path: " + curPR);
+        ui->statusbar->showMessage("No such path: " + curPR, 5000);
     }
 }
 
@@ -84,7 +84,7 @@ void MainWindow::on_changePathR_clicked()
 void MainWindow::on_actionCreate_file_triggered()
 {
     bool ok;
-    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+    QString text = QInputDialog::getText(this, tr("Create new file"),
                                              tr("File name:"), QLineEdit::Normal,
                                              QDir::home().dirName(), &ok);
     if (ok && !text.isEmpty()) {
@@ -104,7 +104,7 @@ void MainWindow::on_actionCreate_file_triggered()
 void MainWindow::on_actionCreate_directory_triggered()
 {
     bool ok;
-    QString text = QInputDialog::getText(this, tr("QInputDialog::getText()"),
+    QString text = QInputDialog::getText(this, tr("Create new directory"),
                                              tr("Folder name:"), QLineEdit::Normal,
                                              QDir::home().dirName(), &ok);
     if (ok && !text.isEmpty()) {
@@ -139,3 +139,33 @@ void MainWindow::on_actionCat_triggered()
     catWindow = new CatWindow(QString::fromStdString(output), this);
     catWindow->show();
 }
+
+void MainWindow::on_actionRename_triggered()
+{
+    // make my_rename
+    if (!ui->leftFiles->currentItem()){
+        ui->statusbar->showMessage("The target file is not selected", 5000);
+        return;
+    }
+
+    bool ok;
+    QString oldName = dirL.path() + "/" + ui->leftFiles->currentItem()->text();
+    QString text = QInputDialog::getText(this, tr("Create new directory"),
+                                             tr("Folder name:"), QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+    if (ok && !text.isEmpty()) {
+
+        QFileInfo fi(oldName);
+        if (fi.exists() && fi.isFile())
+        {
+            if(!QFile::rename(oldName, dirL.path() + "/" + text))
+                ui->statusbar->showMessage("Error while renaming the file", 5000);
+        }  else {
+            ui->statusbar->showMessage("No such file: " + oldName, 5000);
+        }
+
+        ui->leftFiles->clear();
+        loadFilesL(filepathLeft);
+    }
+}
+

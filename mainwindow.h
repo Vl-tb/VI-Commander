@@ -28,6 +28,8 @@ private slots:
 
     void on_actionCreate_directory_triggered();
 
+    void on_actionRename_triggered();
+
 private:
     Ui::MainWindow *ui;
     CatWindow *catWindow;

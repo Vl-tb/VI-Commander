@@ -25,6 +25,9 @@ set(PROJECT_SOURCES
         windows/catwindow.h
         windows/catwindow.cpp
         windows/catwindow.ui
+        windows/movedialog.h
+        windows/movedialog.ui
+        windows/movedialog.cpp
         options_parser/options_parser.cpp
         options_parser/options_parser.h
 )

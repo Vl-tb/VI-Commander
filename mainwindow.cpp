@@ -5,9 +5,11 @@
 #include <QDir>
 #include <QDebug>
 #include <QInputDialog>
+#include <QListWidget>
 
 #include "commands.h"
 #include "catwindow.h"
+#include "movedialog.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     filepathLeft = "/home/ilya/UCU/Grade3/OS/VI Commander/VICommander";
     filepathRight = "/home/ilya";
 
+    // All Connects would be there
 //    connect(touchDialog, SIGNAL(valueChanged(QString)), this, SLOT());
+    connect(ui->leftFiles, SIGNAL(itemClicked(QListWidgetItem*)),
+                this, SLOT(onDirItemClicked(QListWidgetItem*)));
+
+    // End of Connects
 
     dirL.setPath(filepathLeft);
     dirR.setPath(filepathRight);
@@ -32,6 +39,18 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onDirItemClicked(QListWidgetItem* item) {
+    QString fileName = dirL.path() + "/" + item->text();
+    QFileInfo fi(fileName);
+    if(fi.isDir()) {
+        ui->leftFiles->clear();
+        dirL.setPath(fileName);
+        ui->pathL->setText(dirL.path());
+        filepathLeft = fileName;
+        loadFilesL(dirL);
+    }
 }
 
 void MainWindow::loadFilesL(QDir filepath)
@@ -167,5 +186,12 @@ void MainWindow::on_actionRename_triggered()
         ui->leftFiles->clear();
         loadFilesL(filepathLeft);
     }
+}
+
+
+void MainWindow::on_actionMove_triggered()
+{
+    moveDialog = new MoveDialog(dirL.path(), this);
+    moveDialog->show();
 }
 

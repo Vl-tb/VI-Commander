@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QDir>
 #include "catwindow.h"
+#include "movedialog.h"
+#include <QListWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,9 +32,14 @@ private slots:
 
     void on_actionRename_triggered();
 
+    void onDirItemClicked(QListWidgetItem* item);
+
+    void on_actionMove_triggered();
+
 private:
     Ui::MainWindow *ui;
     CatWindow *catWindow;
+    MoveDialog *moveDialog;
 
     QDir dirL;
     QDir dirR;

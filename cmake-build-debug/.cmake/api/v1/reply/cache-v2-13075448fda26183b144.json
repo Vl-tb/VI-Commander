@@ -15,7 +15,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/opt/homebrew/lib/cmake/Boost-1.79.0"
+			"value" : "/opt/homebrew/lib/cmake/Boost-1.80.0"
 		},
 		{
 			"name" : "Boost_INCLUDE_DIR",
@@ -1139,7 +1139,43 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/opt/homebrew/lib/cmake/Boost-1.79.0/BoostConfig.cmake][cfound components: program_options system ][v1.79.0(1.71.0)]"
+			"value" : "[/opt/homebrew/lib/cmake/Boost-1.80.0/BoostConfig.cmake][cfound components: program_options system ][v1.80.0(1.71.0)]"
+		},
+		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_PhysFS",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding PhysFS"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[/opt/homebrew/lib/libphysfs.dylib][/opt/homebrew/include][v()]"
+		},
+		{
+			"name" : "PHYSFS_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a file."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/include"
+		},
+		{
+			"name" : "PHYSFS_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Path to a library."
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/opt/homebrew/lib/libphysfs.dylib"
 		},
 		{
 			"name" : "boost_headers_DIR",
@@ -1155,7 +1191,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/opt/homebrew/lib/cmake/boost_headers-1.79.0"
+			"value" : "/opt/homebrew/lib/cmake/boost_headers-1.80.0"
 		},
 		{
 			"name" : "boost_program_options_DIR",
@@ -1171,7 +1207,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/opt/homebrew/lib/cmake/boost_program_options-1.79.0"
+			"value" : "/opt/homebrew/lib/cmake/boost_program_options-1.80.0"
 		},
 		{
 			"name" : "boost_system_DIR",
@@ -1187,7 +1223,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/opt/homebrew/lib/cmake/boost_system-1.79.0"
+			"value" : "/opt/homebrew/lib/cmake/boost_system-1.80.0"
 		},
 		{
 			"name" : "commander_BINARY_DIR",
@@ -1224,6 +1260,18 @@
 			],
 			"type" : "STATIC",
 			"value" : "/Users/vladprotsenko/Documents/OS/project/VI-Commander"
+		},
+		{
+			"name" : "libzip_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for libzip."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/lib/cmake/libzip"
 		}
 	],
 	"kind" : "cache",

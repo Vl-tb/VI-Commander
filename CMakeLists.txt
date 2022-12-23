@@ -64,6 +64,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
 #! Add external packages
 # options_parser requires boost::program_options library
 find_package(Boost 1.71.0 COMPONENTS program_options system REQUIRED)
+#find_package(physfs REQUIRED)
+#target_include_directories(commander PRIVATE ${PHYSFS_INCLUDE_DIR})
+find_package(libzip REQUIRED)
+target_link_libraries(${PROJECT_NAME} libzip::zip)
 target_include_directories(${PROJECT_NAME} PRIVATE ${Boost_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME} Boost::program_options Boost::system)
 						

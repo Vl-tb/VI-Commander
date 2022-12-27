@@ -28,6 +28,25 @@ set(PROJECT_SOURCES
         windows/movedialog.h
         windows/movedialog.ui
         windows/movedialog.cpp
+        windows/copydialog.h
+        windows/copydialog.cpp
+        windows/copydialog.ui
+        windows/editdialog.ui
+        windows/editdialog.h
+        windows/editdialog.cpp
+        windows/zpcontent.h
+        windows/zpcontent.cpp
+        windows/zpcontent.ui
+        windows/linkdialog.h
+        windows/linkdialog.cpp
+        windows/linkdialog.ui
+        windows/rightsdialog.h
+        windows/rightsdialog.cpp
+        windows/rightsdialog.ui
+        panel.cpp
+        panel.h
+        resource.qrc
+
         options_parser/options_parser.cpp
         options_parser/options_parser.h
 )
@@ -56,8 +75,9 @@ else()
 endif()
 
 
-find_package(Boost 1.71.0 COMPONENTS program_options system REQUIRED)
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${Boost_INCLUDE_DIR} Boost::program_options Boost::system)
+find_package(Boost 1.74.0 COMPONENTS program_options system REQUIRED)
+find_package(libzip REQUIRED)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${Boost_INCLUDE_DIR} Boost::program_options Boost::system libzip::zip)
 target_include_directories(${PROJECT_NAME} PRIVATE options_parser)
 target_include_directories(${PROJECT_NAME} PRIVATE windows)
 

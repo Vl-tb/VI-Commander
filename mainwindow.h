@@ -4,7 +4,12 @@
 #include <QMainWindow>
 #include <QDir>
 #include "catwindow.h"
+#include "copydialog.h"
+#include "editdialog.h"
 #include "movedialog.h"
+#include "rightsdialog.h"
+#include "zpcontent.h"
+#include "linkdialog.h"
 #include <QListWidget>
 
 QT_BEGIN_NAMESPACE
@@ -36,10 +41,46 @@ private slots:
 
     void on_actionMove_triggered();
 
+    void on_actionCopy_triggered();
+
+    void on_actionDelete_triggered();
+
+    void on_actionEdit_file_triggered();
+
+    void on_actionWatch_zip_triggered();
+
+    void on_actionCreate_link_triggered();
+
+    void on_actionChange_rights_triggered();
+
+public slots:
+    // move dialog
+    void mvOk();
+    void mvCmv();
+    void mvDne();
+    void mvPie();
+
+    // copy dialog
+    void cpOk();
+    void cpCmv();
+    void cpDne();
+    void cpPie();
+
+    // link dialog
+    void lnOk();
+    void lnCcl();
+    void lnDne();
+    void lnPie();
+
 private:
     Ui::MainWindow *ui;
     CatWindow *catWindow;
+    EditDialog *editDialog;
     MoveDialog *moveDialog;
+    CopyDialog *copyDialog;
+    zpContent *zipContent;
+    LinkDialog *linkDialog;
+    rightsDialog *rgtDialog;
 
     QDir dirL;
     QDir dirR;
@@ -49,6 +90,7 @@ private:
 
     void loadFilesL(QDir filepath);
     void loadFilesR(QDir filepath);
+    void print(QString s);
 
 };
 #endif // MAINWINDOW_H

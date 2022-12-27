@@ -1,26 +1,26 @@
-#ifndef MOVEDIALOG_H
-#define MOVEDIALOG_H
+#ifndef COPYDIALOG_H
+#define COPYDIALOG_H
 
 #include <QDir>
 #include <QDialog>
 
 namespace Ui {
-class MoveDialog;
+class CopyDialog;
 }
 
-class MoveDialog : public QDialog
+class CopyDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MoveDialog(QString path, QWidget *parent = nullptr);
-    ~MoveDialog();
+    explicit CopyDialog(QString path, QWidget *parent = nullptr);
+    ~CopyDialog();
 
     void updatePath(QString newP);
 
 signals:
     void ok();
-    void cmv();
+    void ccp();
     void dirne();
     void pathie();
 
@@ -30,9 +30,9 @@ private slots:
     void on_OK_clicked();
 
 private:
-    Ui::MoveDialog *ui;
+    Ui::CopyDialog *ui;
     QString fromPath;
     QDir dir;
 };
 
-#endif // MOVEDIALOG_H
+#endif // COPYDIALOG_H

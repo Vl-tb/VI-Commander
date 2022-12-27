@@ -1,33 +1,32 @@
-#include "movedialog.h"
-#include "ui_movedialog.h"
+#include "copydialog.h"
+#include "ui_copydialog.h"
 
-MoveDialog::MoveDialog(QString path, QWidget *parent) :
+CopyDialog::CopyDialog(QString path, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::MoveDialog)
+    ui(new Ui::CopyDialog)
 {
     ui->setupUi(this);
     fromPath = path;
     ui->path_from->setText(fromPath);
 }
 
-MoveDialog::~MoveDialog()
+CopyDialog::~CopyDialog()
 {
     delete ui;
 }
 
-
-void MoveDialog::on_Cancel_clicked()
+void CopyDialog::on_Cancel_clicked()
 {
     ui->path_to->setText("");
     close();
 }
 
-void MoveDialog::updatePath(QString newP) {
+void CopyDialog::updatePath(QString newP) {
     fromPath = newP;
     ui->path_from->setText(fromPath);
 }
 
-void MoveDialog::on_OK_clicked()
+void CopyDialog::on_OK_clicked()
 {
     if(!((ui->path_to->text()).isEmpty()) || !((ui->path_from->text()).isEmpty())) {
 
@@ -36,9 +35,9 @@ void MoveDialog::on_OK_clicked()
         if(dir.exists(curPT) && dir.exists(curPF)) {
             // move
             QString last_part = curPF.section(QDir::separator(), -1);
-            if(!QFile::rename(curPF, curPT + "/"+ last_part)) {
-                // can`t move
-                emit cmv();
+            if(!QFile::copy(curPF, curPT + "/"+ last_part)) {
+                // can`t copy
+                emit ccp();
             }
 
             emit ok();

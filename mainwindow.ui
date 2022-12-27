@@ -174,7 +174,7 @@
      <x>0</x>
      <y>0</y>
      <width>1119</width>
-     <height>22</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -182,12 +182,19 @@
      <string>File</string>
     </property>
     <addaction name="actionRename"/>
+    <addaction name="actionCopy"/>
     <addaction name="actionMove"/>
-    <addaction name="actionCreate_directory"/>
+    <addaction name="actionDelete"/>
+    <addaction name="actionChange_rights"/>
     <addaction name="separator"/>
     <addaction name="actionCat"/>
     <addaction name="actionCreate_file"/>
+    <addaction name="actionEdit_file"/>
+    <addaction name="actionInfo"/>
     <addaction name="separator"/>
+    <addaction name="actionCreate_directory"/>
+    <addaction name="actionCreate_link"/>
+    <addaction name="actionWatch_zip"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -212,27 +219,65 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionRename">
    <property name="text">
-    <string>Rename</string>
+    <string>Rename                    F1</string>
    </property>
   </action>
   <action name="actionMove">
    <property name="text">
-    <string>Move</string>
+    <string>Move                         F6</string>
    </property>
   </action>
   <action name="actionCat">
    <property name="text">
-    <string>Read file</string>
+    <string>Open file                   F3</string>
+   </property>
+   <property name="statusTip">
+    <string/>
    </property>
   </action>
   <action name="actionCreate_directory">
    <property name="text">
-    <string>Create directory</string>
+    <string>Create dir       Shift+F5</string>
    </property>
   </action>
   <action name="actionCreate_file">
    <property name="text">
-    <string>Create file</string>
+    <string>Create file      Shift+F4</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+  <action name="actionCreate_link">
+   <property name="text">
+    <string>Create link          Ctrl+L</string>
+   </property>
+  </action>
+  <action name="actionChange_rights">
+   <property name="text">
+    <string>Change rights    Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionEdit_file">
+   <property name="text">
+    <string>Edit file                      F4</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy                          F5</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete                        F8</string>
+   </property>
+  </action>
+  <action name="actionWatch_zip">
+   <property name="text">
+    <string>Watch zip                  F2</string>
    </property>
   </action>
  </widget>

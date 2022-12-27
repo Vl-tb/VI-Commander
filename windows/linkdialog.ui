@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MoveDialog</class>
- <widget class="QDialog" name="MoveDialog">
+ <class>LinkDialog</class>
+ <widget class="QDialog" name="LinkDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>210</height>
+    <width>431</width>
+    <height>309</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,34 +15,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_5">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout_4">
+    <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Move from:</string>
+            <string>Source filepath</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="path_from"/>
+          <widget class="QLineEdit" name="sfilepath"/>
          </item>
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Move to:</string>
+            <string>Link filepath</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="path_to"/>
+          <widget class="QLineEdit" name="lfilepath"/>
          </item>
         </layout>
        </item>
@@ -51,25 +51,51 @@
      <item>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QRadioButton" name="symL">
          <property name="text">
-          <string>Save atributes</string>
+          <string>Symbolic link</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_2">
+        <widget class="QRadioButton" name="hardL">
          <property name="text">
-          <string>Inside the dir</string>
+          <string>Hard link</string>
          </property>
         </widget>
        </item>
       </layout>
      </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item>
       <widget class="QPushButton" name="Cancel">
        <property name="text">

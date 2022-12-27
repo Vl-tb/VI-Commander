@@ -1,26 +1,26 @@
-#ifndef MOVEDIALOG_H
-#define MOVEDIALOG_H
+#ifndef LINKDIALOG_H
+#define LINKDIALOG_H
 
 #include <QDir>
 #include <QDialog>
 
 namespace Ui {
-class MoveDialog;
+class LinkDialog;
 }
 
-class MoveDialog : public QDialog
+class LinkDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MoveDialog(QString path, QWidget *parent = nullptr);
-    ~MoveDialog();
+    explicit LinkDialog(QString path, QWidget *parent = nullptr);
+    ~LinkDialog();
 
     void updatePath(QString newP);
 
 signals:
     void ok();
-    void cmv();
+    void ccl();
     void dirne();
     void pathie();
 
@@ -30,9 +30,10 @@ private slots:
     void on_OK_clicked();
 
 private:
-    Ui::MoveDialog *ui;
+    Ui::LinkDialog *ui;
     QString fromPath;
     QDir dir;
+    void reset();
 };
 
-#endif // MOVEDIALOG_H
+#endif // LINKDIALOG_H

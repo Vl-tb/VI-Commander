@@ -1,13 +1,15 @@
 #include "copydialog.h"
 #include "ui_copydialog.h"
 
-CopyDialog::CopyDialog(QString path, QWidget *parent) :
+CopyDialog::CopyDialog(QString fpath, QString tpath, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CopyDialog)
 {
     ui->setupUi(this);
-    fromPath = path;
+    fromPath = fpath;
+    toPath = tpath;
     ui->path_from->setText(fromPath);
+    ui->path_to->setText(toPath);
 }
 
 CopyDialog::~CopyDialog()
@@ -17,13 +19,14 @@ CopyDialog::~CopyDialog()
 
 void CopyDialog::on_Cancel_clicked()
 {
-    ui->path_to->setText("");
     close();
 }
 
-void CopyDialog::updatePath(QString newP) {
-    fromPath = newP;
+void CopyDialog::updatePath(QString newPf, QString newPt) {
+    fromPath = newPf;
+    toPath = newPt;
     ui->path_from->setText(fromPath);
+    ui->path_to->setText(toPath);
 }
 
 void CopyDialog::on_OK_clicked()

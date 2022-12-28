@@ -13,10 +13,10 @@ class LinkDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit LinkDialog(QString path, QWidget *parent = nullptr);
+    explicit LinkDialog(QString fpath, QString tpath, QWidget *parent = nullptr);
     ~LinkDialog();
 
-    void updatePath(QString newP);
+    void updatePath(QString newPf, QString newPt);
 
 signals:
     void ok();
@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::LinkDialog *ui;
     QString fromPath;
+    QString toPath;
     QDir dir;
     void reset();
 };

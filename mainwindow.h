@@ -37,7 +37,8 @@ private slots:
 
     void on_actionRename_triggered();
 
-    void onDirItemClicked(QListWidgetItem* item);
+    void onDirItemClickedL(QListWidgetItem* item);
+    void onDirItemClickedR(QListWidgetItem* item);
 
     void on_actionMove_triggered();
 
@@ -52,6 +53,13 @@ private slots:
     void on_actionCreate_link_triggered();
 
     void on_actionChange_rights_triggered();
+
+
+    void on_filesL_itemClicked(QListWidgetItem *item);
+
+    void on_filesR_itemClicked(QListWidgetItem *item);
+
+    void changeSide();
 
 public slots:
     // move dialog
@@ -85,10 +93,15 @@ private:
     QDir dirL;
     QDir dirR;
 
-    QString filepathLeft;
-    QString filepathRight;
+    QString side;
+    QLineEdit *curPath;
+    QLineEdit *secPath;
+    QListWidget *curFiles;
+    QListWidget *secFiles;
+    QDir curDir;
+    QDir secDir;
 
-    void loadFilesL(QDir filepath);
+    void loadFiles(QString sd, QDir filepath);
     void loadFilesR(QDir filepath);
     void print(QString s);
 

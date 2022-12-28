@@ -1,13 +1,15 @@
 #include "movedialog.h"
 #include "ui_movedialog.h"
 
-MoveDialog::MoveDialog(QString path, QWidget *parent) :
+MoveDialog::MoveDialog(QString fpath, QString tpath, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MoveDialog)
 {
     ui->setupUi(this);
-    fromPath = path;
+    fromPath = fpath;
+    toPath = tpath;
     ui->path_from->setText(fromPath);
+    ui->path_to->setText(toPath);
 }
 
 MoveDialog::~MoveDialog()
@@ -18,13 +20,14 @@ MoveDialog::~MoveDialog()
 
 void MoveDialog::on_Cancel_clicked()
 {
-    ui->path_to->setText("");
     close();
 }
 
-void MoveDialog::updatePath(QString newP) {
-    fromPath = newP;
+void MoveDialog::updatePath(QString newPf, QString newPt) {
+    fromPath = newPf;
+    toPath = newPt;
     ui->path_from->setText(fromPath);
+    ui->path_to->setText(toPath);
 }
 
 void MoveDialog::on_OK_clicked()

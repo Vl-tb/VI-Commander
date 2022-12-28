@@ -13,10 +13,10 @@ class CopyDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CopyDialog(QString path, QWidget *parent = nullptr);
+    explicit CopyDialog(QString fpath, QString tpath, QWidget *parent = nullptr);
     ~CopyDialog();
 
-    void updatePath(QString newP);
+    void updatePath(QString newPf, QString newPt);
 
 signals:
     void ok();
@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::CopyDialog *ui;
     QString fromPath;
+    QString toPath;
     QDir dir;
 };
 

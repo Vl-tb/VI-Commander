@@ -13,10 +13,10 @@ class MoveDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit MoveDialog(QString path, QWidget *parent = nullptr);
+    explicit MoveDialog(QString fpath, QString tpath, QWidget *parent = nullptr);
     ~MoveDialog();
 
-    void updatePath(QString newP);
+    void updatePath(QString newPf, QString newPt);
 
 signals:
     void ok();
@@ -32,6 +32,7 @@ private slots:
 private:
     Ui::MoveDialog *ui;
     QString fromPath;
+    QString toPath;
     QDir dir;
 };
 

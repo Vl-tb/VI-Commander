@@ -18,17 +18,24 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QWidget" name="widgetLeft" native="true">
+       <widget class="QWidget" name="widgetL" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <widget class="QLineEdit" name="pathL"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="changePathL">
-           <property name="text">
-            <string>Go</string>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <property name="bottomMargin">
+            <number>0</number>
            </property>
-          </widget>
+           <item>
+            <widget class="QLineEdit" name="pathL"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="changePathL">
+             <property name="text">
+              <string>Go</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QFrame" name="frameL">
@@ -46,7 +53,7 @@
                 <item>
                  <widget class="QLabel" name="label">
                   <property name="text">
-                   <string>Permitions</string>
+                   <string>Name</string>
                   </property>
                  </widget>
                 </item>
@@ -74,14 +81,14 @@
                 <item>
                  <widget class="QLabel" name="labelNameL">
                   <property name="text">
-                   <string>Name</string>
+                   <string>Permisions</string>
                   </property>
                  </widget>
                 </item>
                </layout>
               </item>
               <item>
-               <widget class="QListWidget" name="leftFiles"/>
+               <widget class="QListWidget" name="filesL"/>
               </item>
              </layout>
             </item>
@@ -92,17 +99,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="widgetRight" native="true">
+       <widget class="QWidget" name="widgetR" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QLineEdit" name="pathR"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="changePathR">
-           <property name="text">
-            <string>Go</string>
+          <layout class="QHBoxLayout" name="horizontalLayout_8">
+           <property name="bottomMargin">
+            <number>0</number>
            </property>
-          </widget>
+           <item>
+            <widget class="QLineEdit" name="pathR"/>
+           </item>
+           <item>
+            <widget class="QPushButton" name="changePathR">
+             <property name="text">
+              <string>Go</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QFrame" name="frameR">
@@ -154,7 +168,7 @@
                </layout>
               </item>
               <item>
-               <widget class="QListWidget" name="rightFiles"/>
+               <widget class="QListWidget" name="filesR"/>
               </item>
              </layout>
             </item>

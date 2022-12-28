@@ -2,13 +2,15 @@
 #include "commands.h"
 #include "ui_linkdialog.h"
 
-LinkDialog::LinkDialog(QString path, QWidget *parent) :
+LinkDialog::LinkDialog(QString fpath, QString tpath, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LinkDialog)
 {
     ui->setupUi(this);
-    fromPath = path;
+    fromPath = fpath;
+    toPath = tpath;
     ui->sfilepath->setText(fromPath);
+    ui->lfilepath->setText(toPath);
 }
 
 LinkDialog::~LinkDialog()
@@ -22,9 +24,11 @@ void LinkDialog::on_Cancel_clicked()
     close();
 }
 
-void LinkDialog::updatePath(QString newP) {
-    fromPath = newP;
+void LinkDialog::updatePath(QString newPf, QString newPt) {
+    fromPath = newPf;
+    toPath = newPt;
     ui->sfilepath->setText(fromPath);
+    ui->lfilepath->setText(toPath);
 }
 
 void LinkDialog::on_OK_clicked()
@@ -35,7 +39,7 @@ void LinkDialog::on_OK_clicked()
         QString curSP = ui->sfilepath->text();
         QFileInfo fi(curLP);
         if(dir.exists(fi.absolutePath()) && dir.exists(curSP)) {
-
+            if(fi.isDir()) return;
             std::vector<std::string> args = {curSP.toStdString(), curLP.toStdString()};
             if(ui->symL->isChecked()) {
                 if(vi_symlink(args)) {
